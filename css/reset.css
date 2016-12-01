@@ -1,0 +1,153 @@
+/*--css 初始化-- */
+
+a,
+address,
+b,
+big,
+blockquote,
+body,
+center,
+cite,
+code,
+dd,
+del,
+div,
+dl,
+dt,
+em,
+fieldset,
+font,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html,
+i,
+iframe,
+img,
+ins,
+label,
+legend,
+li,
+ol,
+p,
+pre,
+small,
+span,
+strong,
+u,
+ul,
+var,
+button,
+input,
+textarea {
+	margin: 0;
+	padding: 0;
+}
+fieldset,
+img,
+input,
+button {
+	border: none;
+	outline-style: none;
+}
+ul,
+ol {
+	list-style: none;
+}
+input {
+	font-family: "Helvetica", " Microsoft YaHei";
+	font-size: 14px;
+}
+select,
+input {
+	vertical-align: middle;
+}
+select,
+input,
+textarea {
+	font-size: 14px;
+}
+
+/*--防止拖动--*/
+
+textarea {
+	resize: none;
+}
+
+/*--去掉图片低测默认的3像素空白缝隙--*/
+
+img {
+	border: 0;
+	vertical-align: middle;
+}
+table {
+	border-collapse: collapse;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-decoration: none;
+	font-weight: normal;
+	font-size: 100%;
+}
+s,
+i,
+em {
+	font-style: normal;
+	text-decoration: none;
+}
+a {
+	text-decoration: none;
+	color: inherit;
+}
+/*--解决button在firefox下文字不能上下居中的问题--*/
+button::-moz-focus-inner {
+	margin: 0;
+	padding: 0px 0 2px;
+	border: none;
+}
+body {
+	font-family: "Helvetica", " Microsoft YaHei";
+	font-size: 14px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+div{
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+html {
+	box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+/*--清除浮动--*/
+
+
+/*
+.clearfix,
+.col-wrap {
+	*+height: 1%;
+}
+.clearfix:after,
+.col-wrap:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+*/
