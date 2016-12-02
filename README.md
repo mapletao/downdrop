@@ -109,7 +109,7 @@
 - hideDom
 	- 隐藏下拉框列表
 
--setDocClick
+- setDocClick
 	- 点击非下拉区域隐藏所有下拉列表
 
 - removeOpt 
