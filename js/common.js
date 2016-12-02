@@ -93,6 +93,5 @@ var mapletao = {
 		}
 	},
 	ajax: function(url, callback) {
-
 	}
 };
