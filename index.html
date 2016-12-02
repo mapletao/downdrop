@@ -7,29 +7,58 @@
 	<link rel="stylesheet" type="text/css" href="css/downdrop.css" />
 </head>
 <body>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;">
-		<div class="downdrop">
-			<div class="downdrop-header">请选择</div>
-			<i class="angle"></i>
-			<ul class="downdrop-con">
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-				<li data-val="1">选项一</li>
-			</ul>
-		</div>
+	<p>默认</p>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test1">
 	</div>
+	<p>不赋值</p>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test2">
+	</div>
+	<p>不隐藏</p>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test3">
+	</div>
+	<script src="js/common.js"></script>
 	<script src="js/downdrop.js"></script>
+	
 	<script type="text/javascript">
-		Downdrop();
+		var data=[{
+			"val":1,
+			"text":"语文"
+		},{
+			"val":2,
+			"text":"数学"
+		},{
+			"val":3,
+			"text":"英语"
+		},{
+			"val":4,
+			"text":"历史"
+		},{
+			"val":5,
+			"text":"化学"
+		},{
+			"val":6,
+			"text":"生物"
+		},{
+			"val":7,
+			"text":"物理"
+		}];
+		var test1={
+			ele:document.getElementById("J_test1"),
+			data:data
+		};
+		var obj=new Downdrop(test1);
+		var test2={
+			ele:document.getElementById("J_test2"),
+			data:data,
+			text:false
+		}
+		var obj2=Downdrop(test2);
+		var test3={
+			ele:document.getElementById("J_test3"),
+			data:data,
+			isHide:false
+		}
+		var obj3=new Downdrop(test3);
 	</script>
 </body>
 </html>

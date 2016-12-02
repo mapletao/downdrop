@@ -1,86 +1,134 @@
 ;(function(wic){
 	var Downdrop=function(opt){
 		if(!(this instanceof Downdrop)){
-			alert(2)
 			return new Downdrop(opt);	
 		}
-		alert(1)
 		this.init(opt);
 	};
-	var mapletao={
-		eventUtil:{
-			//处理iethis指向问题
-			bindfn:function(fn,ele){
-				return  function(){
-					return fn.call(ele);
-				}
-			},
-			//绑定事件
-			bindEvent:(function(dom,type,fn){
-				if(window.addEventListener){
-					return function(dom,type,fn){
-						dom.addEventListener(type,fn,false)
-					};
-				}else if(window.attachEvent){
-					var self=this;
-					return function(dom,type,fn){
-						fn=self.bindfn(fn,ele);
-						dom.attachEvent('on'+type,fn);
-					};
-				}else{
-					return function(dom,type,fn){
-						dom["on"+type]=fn;
-					};
-				}
-			})(),
-			// 阻止冒泡
-			stopPropagation:function(e){
-				var self=this;
-				if(window.event){
-					self.stopPropagation=function(e){
-						window.event.cancelBubble = true;
-					}
-				}else{
-					self.stopPropagation=function(e){
-						e.stopPropagation();
-					}
-				}
-				self.stopPropagation();
-			},
-			//阻止默认行为
-			preventDefault:function(){
-				var self=this;
-				if(window.event){
-					self.preventDefault=function(e){
-						window.event.returnValue = false
-					}
-				}else{
-					self.preventDefault=function(e){
-						e.preventDefault();
-					}
-				}
-				self.preventDefault();
-			},
-			//解除事件
-			removeBind:(function(ele, type, fn) {
-				if (window.removeEventListerner) { // 标准浏览器
-					return function(dom,type,fn){
-						ele.removeEventListerner(type, fn, false);
-					};
-				} else if (window.detachEvent) { // IE浏览器
-					return function(dom,type,fn){
-						ele.detachEvent("on" + type, fn);
-					};
-				} else{
-					return function(dom,type,fn){
-						ele["on"+type]=null;
-					};
-				}
-			})()
-		}
-	}
+	var eventUtil=mapletao.eventUtil;
 	Downdrop.prototype={
-		init:function(opt){}
+		init:function(opt){
+			this.setOpt(opt);
+			this.dealOpt();
+			this.setHtml();
+			this.setFun();
+			this.removeOpt();
+		},
+		setOpt:function(opt){
+			this.ulTemp=['<div class="downdrop">',
+											'<div class="downdrop-header">请选择</div>',
+											'<i class="angle"></i>',
+											'<ul class="downdrop-con">',
+											'</ul>',
+										'</div>'].join('');
+			this.setting = {
+				liTemp:'<li data-val="{{val}}">{{text}}</li>',
+				text:true,
+				isHide:true,
+			};
+			mapletao.extend(this.setting,opt);
+		},
+		dealOpt:function(){
+			var self=this;
+			self.dealLiFns=[];
+			if(self.setting.text){
+				self.dealLiFns.push(function(self){
+					self.headerDom.innerHTML = this.innerHTML;
+					self.headerDom.setAttribute("data-val",this.getAttribute("data-val"));
+				});
+			}
+			if(self.setting.isHide){
+				self.dealLiFns.push(function(self){
+					self.conDom.style.display = "none";
+				});
+			}
+			if(self.setting.cb){
+				self.dealLiFns.push(cb);
+			}
+		},
+		setHtml:function(){
+			var self = this;
+			self.setting.ele.innerHTML=self.ulTemp;
+			self.setEle();
+			self.setList(self.setting.data);
+		},
+		setList:function(data){
+			var self=this;
+			self.lis='';
+			data.forEach(function(obj){
+				self.lis += self.formateString(self.setting.liTemp,obj);
+			});
+			self.conDom.innerHTML = self.lis;
+			this.headerDom.innerHTML = "请选择";
+		},
+		formateString:function(str,data){
+			return str.replace(/\{\{(\w+)\}\}/g,function(match,key){
+				return typeof data[key] === undefined? '' : data[key];
+			});
+		},
+		setEle:function(){
+			var ele=this.setting.ele;
+			this.headerDom=ele.getElementsByClassName("downdrop-header")[0];
+			this.conDoms=document.getElementsByClassName("downdrop-con");
+			this.conDom=ele.getElementsByClassName("downdrop-con")[0];
+		},
+		setFun:function(){
+			this.setEleClick();
+			this.setHeaderClick();
+			this.setConClick();
+			this.setDocClick();
+		},
+		setEleClick:function(){
+			var self=this;
+			eventUtil.bindEvent(this.setting.ele,"click",self.setDomBubble);
+		},
+		setDomBubble:function(e){
+			eventUtil.stopPropagation(e);
+		},
+		setHeaderClick:function(){
+			var self=this;
+			self.dealHeaderFn=self.bindFn(self.dealHeaderFn,self);
+			eventUtil.bindEvent(this.headerDom,"click",self.dealHeaderFn);
+		},
+		dealHeaderFn:function(e,self){
+			self.hideDom(e,self);
+			self.conDom.style.display = "block";
+		},
+		setConClick:function(){
+			var self=this;
+			self.dealLiFn=self.bindFn(self.dealLiFn,self);
+			eventUtil.bindEvent(this.conDom,"click",self.dealLiFn);
+		},
+		dealLiFn:function(e,self){
+			e = eventUtil.getEvent(e);
+			var target = eventUtil.getEventSrc(e);
+			if(target.tagName.toLowerCase() === "li"){
+				self.dealLiFns.forEach(function(obj){
+					obj.call(target,self);
+				});
+				target=null;
+			}
+		},
+		bindFn:function(fn,args){
+			return function(e){
+				fn.call(this,e,args);
+			};
+		},
+		hideDom:function(e,self){
+			for(var i=0;i<self.conDoms.length;i++){
+				self.conDoms[i].style.display = "none";
+			}
+		},
+		setDocClick:function(){
+			var self = this;
+			Downdrop.prototype.hideDom=self.bindFn(self.hideDom,self);
+			eventUtil.bindEvent(document,"click",self.hideDom);
+		},
+		removeOpt:function(){
+			delete this.setting;
+			delete this.lis;
+			delete this.ulTemp;
+		}
 	};
 	window.Downdrop=Downdrop;
-})(window)
+})(window);
