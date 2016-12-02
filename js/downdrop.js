@@ -1,4 +1,4 @@
-;(function(wic){
+;(function(){
 	var Downdrop=function(opt){
 		if(!(this instanceof Downdrop)){
 			return new Downdrop(opt);	
@@ -131,4 +131,4 @@
 		}
 	};
 	window.Downdrop=Downdrop;
-})(window);
+})();
