@@ -16,6 +16,9 @@
 	<p>不隐藏</p>
 	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test3">
 	</div>
+	<p>不赋值,不隐藏</p>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test4">
+	</div>
 	<script src="js/common.js"></script>
 	<script src="js/downdrop.js"></script>
 	
@@ -59,6 +62,13 @@
 			isHide:false
 		}
 		var obj3=new Downdrop(test3);
+		var test4={
+			ele:document.getElementById("J_test4"),
+			data:data,
+			isHide:false,
+			text:false
+		};
+		var obj4=new Downdrop(test4);
 	</script>
 </body>
 </html>
