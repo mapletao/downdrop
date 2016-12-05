@@ -7,7 +7,29 @@
 	};
 	var eventUtil=mapletao.eventUtil;
 	Downdrop.prototype={
+		dealEles:function(opt){
+			var self=this;
+			for(var i=0;i<opt.ele.length;i++){
+				var p={};
+				for(var k in opt){
+					p[k]=opt[k];
+				}
+				p.ele=opt.ele[i];
+				new Downdrop(p);
+			}
+		},
 		init:function(opt){
+			if(opt.ele.length>1){
+				this.dealEles(opt);
+				this.init=function(opt){
+					this.setOpt(opt);
+					this.dealOpt();
+					this.setHtml();
+					this.setFun();
+					this.removeOpt();
+				};
+				return !1;
+			}
 			this.setOpt(opt);
 			this.dealOpt();
 			this.setHtml();

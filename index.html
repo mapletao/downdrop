@@ -19,6 +19,15 @@
 	<p>不赋值,不隐藏</p>
 	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test4">
 	</div>
+	<p>class操作</p>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test">
+	</div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test">
+	</div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test">
+	</div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test">
+	</div>
 	<script src="js/common.js"></script>
 	<script src="js/downdrop.js"></script>
 	
@@ -69,6 +78,12 @@
 			text:false
 		};
 		var obj4=new Downdrop(test4);
+		
+		var test5={
+			ele:document.getElementsByClassName("test"),
+			data:data
+		}
+		var obj5=new Downdrop(test5);
 	</script>
 </body>
 </html>
