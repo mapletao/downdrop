@@ -152,5 +152,5 @@
 			delete this.ulTemp;
 		}
 	};
-	window.Downdrop=Downdrop;
+	window.Downdrop = Downdrop;
 })();
