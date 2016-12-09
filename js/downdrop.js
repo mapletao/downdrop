@@ -77,9 +77,13 @@
 		setList:function(data){
 			var self=this;
 			self.lis='';
-			data.forEach(function(obj){
-				self.lis += self.formateString(self.setting.liTemp,obj);
-			});
+			if(data instanceof Array){
+				data.forEach(function(obj){
+					self.lis += self.formateString(self.setting.liTemp,obj);
+				});
+			}else{
+				self.lis += self.formateString(self.setting.liTemp,data);
+			}
 			self.conDom.innerHTML = self.lis;
 			this.headerDom.innerHTML = "请选择";
 		},
@@ -147,7 +151,6 @@
 			eventUtil.bindEvent(document,"click",self.hideDom);
 		},
 		removeOpt:function(){
-			delete this.setting;
 			delete this.lis;
 			delete this.ulTemp;
 		}

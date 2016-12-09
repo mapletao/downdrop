@@ -5,32 +5,38 @@
 	<title>下拉框测试demo</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="css/downdrop.css" />
+	<style type="text/css">
+		    .main{
+		    	display: inline-block;
+    			border: 1px solid #ccc;
+    			margin-top: 10px;
+    			padding: 5px 10px;
+    			background-color: #ddd;
+  			}
+  			.main:hover{
+  				color:#fff;
+  				background: #5D5A5A;
+  			}
+	</style>
 </head>
 <body>
 	<p>默认</p>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test1">
-	</div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test1"></div>
 	<p>不赋值</p>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test2">
-	</div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test2"></div>
 	<p>不隐藏</p>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test3">
-	</div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test3"></div>
 	<p>不赋值,不隐藏</p>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test4">
-	</div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" id="J_test4"></div>
 	<p>class操作</p>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test">
-	</div>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test">
-	</div>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test">
-	</div>
-	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test">
-	</div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test"></div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test"></div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test"></div>
+	<div style="width:200px;margin-left: 20px;margin-top:10px;" class="test"></div>
+	<a href="#main" onclick="changeList()" class="main">点击我</a>
 	<script src="js/common.js"></script>
 	<script src="js/downdrop.js"></script>
-	
+
 	<script type="text/javascript">
 		var data=[{
 			"val":1,
@@ -84,6 +90,66 @@
 			data:data
 		}
 		var obj5=new Downdrop(test5);
-	</script>
-</body>
+		
+  	mapletao.ajax({
+  		url:"http://localhost:8888/data/listItem2.json",
+  		data:"11",
+  		type:"GET",
+  		success:function(data){
+  			obj2.setList(data);
+  		},
+  		error:function(){
+  		}
+  	});
+  	mapletao.ajax({
+  		url:"http://localhost:8888/data/listItem.json",
+  		data:"11",
+  		type:"GET",
+  		timeout:0,
+  		success:function(data){
+  			obj.setList(data);
+  		},
+  		error:function(){
+  		}
+  	});
+  	function  changeList(){
+  		alert(1);
+  		mapletao.ajax({
+	  		url:"http://localhost:8888/data/listItem2.json",
+	  		data:"11",
+	  		type:"GET",
+	  		timeout:0,
+	  		success:function(data){
+	  			obj.setList(data);
+	  		},
+	  		error:function(){
+	  			// alert(0);
+	  		}
+  		});
+  		changeList=function(){
+
+  		};
+  	}
+  	
+  // 	var socket = new WebSocket('ws://localhost:8888'); 
+  // 	// 打开Socket 
+		// socket.onopen = function(event) { 
+
+		//   // 发送一个初始化消息
+		//   socket.send('I am the client and I\'m listening!'); 
+
+		//   // 监听消息
+		//   socket.onmessage = function(event) { 
+		//     console.log('Client received a message',event); 
+		//   }; 
+
+		//   // 监听Socket的关闭
+		//   socket.onclose = function(event) { 
+		//     console.log('Client notified socket has closed',event); 
+		//   }; 
+
+		//   // 关闭Socket.... 
+		//   //socket.close() 
+		// };
+	</script></body>
 </html>
